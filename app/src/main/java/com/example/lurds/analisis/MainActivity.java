@@ -2,6 +2,7 @@ package com.example.lurds.analisis;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -21,7 +22,9 @@ public class MainActivity extends ActionBarActivity {
 
         wifi = new Wifi(this);
 
+        Log.d("onCreate()","despues wifi");
         Spinner puntoAcceso = (Spinner) findViewById(R.id.puntoAcceso);
+
         ArrayList<String> pAcceso = wifi.PuntosAcceso();
         pAcceso.add("Todos los puntos de Acceso");
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,pAcceso);
