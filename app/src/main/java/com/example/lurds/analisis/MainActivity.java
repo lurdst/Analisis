@@ -60,20 +60,23 @@ public class MainActivity extends ActionBarActivity {
         }
         Map<String, Integer> resEscaneo=wifi.Escanear();
         String PASeleccionado = puntoAcceso.getSelectedItem().toString();
-        String linea = " ";
+        String linea = "";
         if(PASeleccionado.matches("Todos los puntos de Acceso")){
             linea = alturaIntroducida + " " + distanciaIntroducida + " ";
             //Recorremos el Map y vamos añadendo el BSSID y su potencia asociada.
+            int i = 0;
             for (String key : resEscaneo.keySet()) {
+                i++;
+                Log.d("Recorriendo el Map", i+"");
                 linea = linea + key + " " + resEscaneo.get(key) + " ";
             }
-            linea = linea + "\n";
+            linea = linea + "\n\n";
         }
         else{
             if(resEscaneo.containsKey(PASeleccionado)){
                 linea = alturaIntroducida + " " + distanciaIntroducida + " ";
                 linea = linea + PASeleccionado + " " + resEscaneo.get(PASeleccionado) + " ";
-                linea = linea + "\n";
+                linea = linea + "\n\n";
             }
         }
 
