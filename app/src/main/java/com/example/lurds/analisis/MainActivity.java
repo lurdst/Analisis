@@ -5,15 +5,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity {
 
     Wifi wifi;
+
+    Spinner puntoAcceso;
+    EditText altura, distancia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +30,9 @@ public class MainActivity extends ActionBarActivity {
         wifi = new Wifi(this);
 
         Log.d("onCreate()","despues wifi");
-        Spinner puntoAcceso = (Spinner) findViewById(R.id.puntoAcceso);
+        puntoAcceso = (Spinner) findViewById(R.id.puntoAcceso);
+        altura = (EditText) findViewById(R.id.editAltura);
+        distancia = (EditText) findViewById(R.id.editDistancia);
 
         ArrayList<String> pAcceso = wifi.PuntosAcceso();
         pAcceso.add("Todos los puntos de Acceso");
@@ -31,6 +40,32 @@ public class MainActivity extends ActionBarActivity {
         puntoAcceso.setAdapter(adapter);
     }
 
+    public void escanearOnClick(View v){
+        Log.d("escanearOnClick()","escanear");
+        if (altura.getText().toString().matches("")){
+            Log.d("escanearOnClick()", "La altura no puede quedar en blanco");
+            Toast.makeText(this, "debes introducir la altura", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (distancia.getText().toString().matches("")){
+            Log.d("escanearOnClick()", "La distancia no puede quedar en blanco");
+            Toast.makeText(this, "debes introducir la distancia", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Map<String, Integer> resEscaneo=wifi.Escanear();
+        String PASeleccionado = puntoAcceso.getSelectedItem().toString();
+        if(PASeleccionado.matches("Todos los puntos de Acceso")){
+
+        }
+    }
+
+    public void datosOnClick(View v){
+        Log.d("datosOnClick()","datos");
+    }
+
+    public void graficoOnClick(View v){
+        Log.d("graficoOnClick()","grafico");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
