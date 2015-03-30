@@ -1,5 +1,6 @@
 package com.example.lurds.analisis;
 
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -21,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
 
     Spinner puntoAcceso;
     EditText altura, distancia;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +46,47 @@ public class MainActivity extends ActionBarActivity {
 
     public void escanearOnClick(View v){
         Log.d("escanearOnClick()","escanear");
-        if (altura.getText().toString().matches("")){
+        String alturaIntroducida=altura.getText().toString();
+        if (alturaIntroducida.matches("")){
             Log.d("escanearOnClick()", "La altura no puede quedar en blanco");
             Toast.makeText(this, "debes introducir la altura", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (distancia.getText().toString().matches("")){
+        String distanciaIntroducida = distancia.getText().toString();
+        if (distanciaIntroducida.matches("")){
             Log.d("escanearOnClick()", "La distancia no puede quedar en blanco");
             Toast.makeText(this, "debes introducir la distancia", Toast.LENGTH_SHORT).show();
             return;
         }
         Map<String, Integer> resEscaneo=wifi.Escanear();
         String PASeleccionado = puntoAcceso.getSelectedItem().toString();
+        String linea = " ";
         if(PASeleccionado.matches("Todos los puntos de Acceso")){
-
+            linea = alturaIntroducida + " " + distanciaIntroducida + " ";
+            //Recorremos el Map y vamos añadendo el BSSID y su potencia asociada.
+            for (String key : resEscaneo.keySet()) {
+                linea = linea + key + " " + resEscaneo.get(key) + " ";
+            }
+            linea = linea + "\n";
         }
+        else{
+            if(resEscaneo.containsKey(PASeleccionado)){
+                linea = alturaIntroducida + " " + distanciaIntroducida + " ";
+                linea = linea + PASeleccionado + " " + resEscaneo.get(PASeleccionado) + " ";
+                linea = linea + "\n";
+            }
+        }
+
+        String nomarchivo = "Datos";
+        try {
+            String FICHERO = Environment.getExternalStorageDirectory() + "/" + nomarchivo + ".txt";
+            FileOutputStream f = new FileOutputStream(FICHERO, true);
+            f.write(linea.getBytes());
+            f.close();
+            Toast.makeText(this, "Dato almacenado correctamente", Toast.LENGTH_SHORT).show();
+        } catch (IOException ioe) {
+        }
+
     }
 
     public void datosOnClick(View v){
