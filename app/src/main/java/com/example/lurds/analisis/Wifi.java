@@ -78,5 +78,8 @@ public class Wifi {
 
     }
 
+    public void Stop(){
+        manWifi.disconnect();
+    }
 }
 
