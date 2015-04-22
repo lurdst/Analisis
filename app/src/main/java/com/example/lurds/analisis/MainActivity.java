@@ -93,15 +93,16 @@ public class MainActivity extends ActionBarActivity {
         String PASeleccionado = puntoAcceso.getSelectedItem().toString();
 
         if(PASeleccionado.matches("Todos los puntos de Acceso")){
-            muestra aux = new muestra( Integer.parseInt(alturaIntroducida), Integer.parseInt(distanciaIntroducida), resEscaneo);
+            muestra aux = new muestra( Float.parseFloat(alturaIntroducida), Float.parseFloat(distanciaIntroducida), resEscaneo);
             datos.add(aux);
         }
         else{
             if(resEscaneo.containsKey(PASeleccionado)){
-                muestra aux = new muestra( Integer.parseInt(alturaIntroducida), Integer.parseInt(distanciaIntroducida));
+                muestra aux = new muestra( Float.parseFloat(alturaIntroducida), Float.parseFloat(distanciaIntroducida));
                 aux.put(PASeleccionado, resEscaneo.get(PASeleccionado));
             }
         }
+
     }
 
     public void datosOnClick(View v){

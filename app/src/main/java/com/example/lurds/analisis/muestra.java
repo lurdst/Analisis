@@ -11,7 +11,7 @@ public class muestra {
      * @{
      * @name Coordenadas donde se toma la muestra
      */
-    private int x_, y_;
+    private float x_, y_;
     /**
      * @name conjunto de pares <Mac, potencia>
      */
@@ -24,7 +24,7 @@ public class muestra {
      * @param y         coordenada y
      * @param potencias conjunto de potencias escanedas
      */
-    public muestra(int x, int y, Map<String, Integer> potencias) {
+    public muestra(float x, float y, Map<String, Integer> potencias) {
         x_ = x;
         y_ = y;
         potencias_ = potencias;
@@ -36,7 +36,7 @@ public class muestra {
      * @param x Coordenada x
      * @param y Coordenada y
      */
-    public muestra(int x, int y) {
+    public muestra(float x, float y) {
         x_ = x;
         y_ = y;
         potencias_ = new HashMap<String, Integer>();
@@ -45,28 +45,28 @@ public class muestra {
     /**
      * @return Coordenada x
      */
-    public int getX() {
+    public float getX() {
         return x_;
     }
 
     /**
      * @param x Coordenada x
      */
-    public void setX(int x) {
+    public void setX(float x) {
         this.x_ = x;
     }
 
     /**
      * @return Coordenada y
      */
-    public int getY() {
+    public float getY() {
         return y_;
     }
 
     /**
      * @param y Coordenada y
      */
-    public void setY(int y) {
+    public void setY(float y) {
         this.y_ = y;
     }
 
