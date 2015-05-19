@@ -1,5 +1,6 @@
 package com.example.lurds.analisis;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
@@ -108,10 +109,16 @@ public class MainActivity extends ActionBarActivity {
     public void datosOnClick(View v){
         Log.d("datosOnClick()","datos");
 
+
     }
 
     public void graficoOnClick(View v){
         Log.d("graficoOnClick()","grafico");
+        Intent intent = new Intent(MainActivity.this,grafica.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("datos", datos);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
